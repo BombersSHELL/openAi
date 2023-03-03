@@ -5,7 +5,7 @@ const port = 5000;
 require('dotenv').config();
 
 // get the API key from the environment variable
-const configuration = new Configuration({ apiKey: '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' });
+const configuration = new Configuration({ apiKey: 'apikey' });
 const openai = new OpenAIApi(configuration);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
