@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>fasong</title>
+    <style>
+        #msg {
+            height: 100px;
+            width: 300px;
+            border: 1px solid black;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<input id = 'words' type="text" name="prompt">
+<button id = 'btn'>提交</button>
+<div id="msg"></div>
+<script>
+    const btn = document.getElementById('btn');
+    const content = document.getElementById('msg');
+    const words = document.getElementById('words');
+
+    btn.onclick = () => {
+        const xhr = new XMLHttpRequest();
+        const val = { prompt: words.value };
+        console.log(val);
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    console.log(xhr.response);
+                    content.innerHTML = `<h3>${xhr.response}</h3>`;
+                }
+            }
+        };
+
+        xhr.open('POST', 'http://127.0.0.1:5000/api/prompt');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.responseType = 'json';
+        xhr.send(JSON.stringify(val));
+    };
+
+</script>
+</body>
+</html>
